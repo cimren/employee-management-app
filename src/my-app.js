@@ -24,6 +24,7 @@ export class MyApp extends LitElement {
       { path: '/', component: 'home-page' },
       { path: '/employees', component: 'employees-page' },
       { path: '/employee-form', component: 'employee-form-page' },
+      { path: '/employee-form/:id', component: 'employee-form-page' },
       { path: '(.*)', redirect: '/' },
     ]);
   }

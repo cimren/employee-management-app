@@ -1,5 +1,8 @@
 import { LitElement, html, css } from 'lit';
-import { departments, positions } from '../../services/employee-service.js';
+import { departments, positions } from '../../utils/constants.js';
+import '../input/text-field.js';
+import '../input/date-picker.js';
+import '../input/app-select.js';
 
 export class EmployeeForm extends LitElement {
   static properties = {
@@ -18,36 +21,10 @@ export class EmployeeForm extends LitElement {
       box-shadow: var(--shadow);
     }
 
-    .form-group {
-      margin-bottom: 1rem;
-    }
-
     .form-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 1rem;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 0.5rem;
-      color: var(--text-color);
-      font-weight: 500;
-    }
-
-    input,
-    select {
-      width: 100%;
-      padding: 0.5rem;
-      border: 1px solid var(--border-color);
-      border-radius: 4px;
-      font-size: 1rem;
-    }
-
-    input:focus,
-    select:focus {
-      outline: none;
-      border-color: var(--primary-color);
     }
 
     .buttons {
@@ -129,115 +106,88 @@ export class EmployeeForm extends LitElement {
     return html`
       <form class="form-container" @submit=${this._handleSubmit}>
         <div class="form-row">
-          <div class="form-group">
-            <label for="firstName">First Name</label>
-            <input
-              type="text"
-              id="firstName"
-              name="firstName"
-              .value=${firstName}
-              @input=${this._handleInput}
-              required
-            />
-          </div>
-
-          <div class="form-group">
-            <label for="lastName">Last Name</label>
-            <input
-              type="text"
-              id="lastName"
-              name="lastName"
-              .value=${lastName}
-              @input=${this._handleInput}
-              required
-            />
-          </div>
+          <text-field
+            name="firstName"
+            label="First Name"
+            .value=${firstName}
+            isRequired
+            @input-changed=${this._handleInput}
+          ></text-field>
+          <text-field
+            name="lastName"
+            label="Last Name"
+            .value=${lastName}
+            isRequired
+            @input-changed=${this._handleInput}
+          ></text-field>
+        </div>
+        <div class="form-row">
+          <date-picker
+            id="dateOfEmployment"
+            name="dateOfEmployment"
+            label="Date of Employment"
+            selectedDate=${dateOfEmployment}
+            isRequired
+            @date-selected=${(e) =>
+              this._handleInput({
+                target: { name: 'dateOfEmployment', value: e.detail.date },
+              })}
+          ></date-picker>
+          <date-picker
+            id="datePicker"
+            name="dateOfBirth"
+            label="Date of Birth"
+            selectedDate=${dateOfBirth}
+            isRequired
+            @date-selected=${(e) =>
+              this._handleInput({
+                target: { name: 'dateOfBirth', value: e.detail.date },
+              })}
+          ></date-picker>
         </div>
 
         <div class="form-row">
-          <div class="form-group">
-            <label for="dateOfEmployment">Date of Employment</label>
-            <input
-              type="date"
-              id="dateOfEmployment"
-              name="dateOfEmployment"
-              .value=${dateOfEmployment}
-              @input=${this._handleInput}
-              required
-            />
-          </div>
-
-          <div class="form-group">
-            <label for="dateOfBirth">Date of Birth</label>
-            <input
-              type="date"
-              id="dateOfBirth"
-              name="dateOfBirth"
-              .value=${dateOfBirth}
-              @input=${this._handleInput}
-              required
-            />
-          </div>
+          <text-field
+            name="phoneNumber"
+            label="Phone Number"
+            type="tel"
+            .value=${phoneNumber}
+            isRequired
+            @input-changed=${this._handleInput}
+          ></text-field>
+          <text-field
+            name="email"
+            label="Email Address"
+            type="email"
+            .value=${email}
+            isRequired
+            @input-changed=${this._handleInput}
+          ></text-field>
         </div>
 
         <div class="form-row">
-          <div class="form-group">
-            <label for="phoneNumber">Phone Number</label>
-            <input
-              type="tel"
-              id="phoneNumber"
-              name="phoneNumber"
-              .value=${phoneNumber}
-              @input=${this._handleInput}
-              required
-            />
-          </div>
-
-          <div class="form-group">
-            <label for="email">Email Address</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              .value=${email}
-              @input=${this._handleInput}
-              required
-            />
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label for="department">Department</label>
-            <select
-              id="department"
-              name="department"
-              .value=${department}
-              @input=${this._handleInput}
-              required
-            >
-              <option value="">Select Department</option>
-              ${departments.map(
-                (dept) => html`<option value=${dept}>${dept}</option>`
-              )}
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="position">Position</label>
-            <select
-              id="position"
-              name="position"
-              .value=${position}
-              @input=${this._handleInput}
-              required
-            >
-              <option value="">Select Position</option>
-              ${positions.map(
-                (pos) => html`<option value=${pos}>${pos}</option>`
-              )}
-            </select>
-          </div>
+          <app-select
+            label="Department"
+            name="department"
+            placeholder="Select Department"
+            .options=${departments.map((dept) => ({
+              value: dept,
+              label: dept,
+            }))}
+            .value=${department}
+            @change=${this._handleInput}
+          ></app-select>
+          <app-select
+            label="Position"
+            name="position"
+            placeholder="Select Position"
+            .options=${positions.map((dept) => ({
+              value: dept,
+              label: dept,
+            }))}
+            .value=${position}
+            @change=${this._handleInput}
+          ></app-select>
         </div>
 
         <div class="buttons">

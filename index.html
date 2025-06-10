@@ -16,6 +16,10 @@
         background-color: #f5f5f5;
       }
     </style>
+    <script>
+      // Polyfill for process.env in the browser
+      window.process = { env: { NODE_ENV: 'development' } };
+    </script>
   </head>
   <body>
     <my-app></my-app>

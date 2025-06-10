@@ -1,7 +1,10 @@
 import { LitElement, html, css } from 'lit';
 import '../components/header/page-header.js';
-import { employeeService } from '../services/employee-service.js';
-import { Router } from '@vaadin/router';
+import { store } from '../store/store.js';
+import { addEmployee, updateEmployee } from '../store/employeeSlice.js';
+import { navigate } from '../utils/helpers.js';
+import '../components/employee/employee-form.js';
+import '../components/modal/app-modal.js';
 
 const initialEmployee = {
   firstName: '',
@@ -16,7 +19,8 @@ const initialEmployee = {
 
 export class EmployeeFormPage extends LitElement {
   static properties = {
-    selectedEmployee: { type: Object },
+    employee: { type: Object },
+    showSaveModal: { type: Boolean },
   };
 
   static styles = css`
@@ -33,34 +37,76 @@ export class EmployeeFormPage extends LitElement {
 
   constructor() {
     super();
-    this.selectedEmployee = initialEmployee;
+    this.employee = initialEmployee;
+    this.showSaveModal = false;
   }
 
-  async _handleSave(event) {
-    const employee = event.detail;
-    await employeeService.updateEmployee(employee);
-    this._navigate('/employees');
+  connectedCallback() {
+    super.connectedCallback();
+    const state = store.getState();
+
+    // Get query parameters from the URL using Router
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
+
+    // If an ID is provided, find the employee in the state
+    if (id) {
+      const employee = state.employee.employees.find(
+        (emp) => emp.id === parseInt(id)
+      );
+      if (employee) {
+        this.employee = { ...employee };
+      }
+    }
   }
 
-  _navigate(path) {
-    Router.go(path);
+  _handleSave(event) {
+    this.employee = event.detail;
+    this.showSaveModal = true;
+  }
+
+  _handleSaveConfirm() {
+    if (this.employee.id) {
+      store.dispatch(updateEmployee(this.employee));
+    } else {
+      store.dispatch(addEmployee(this.employee));
+    }
+
+    navigate('/employees');
+  }
+
+  _handleSaveCancel() {
+    this.showSaveModal = false;
   }
 
   _handleCancel() {
-    this.selectedEmployee = null;
-    this._navigate('/employees');
+    navigate('/employees');
   }
 
   render() {
     return html`
       <div class="container">
-        <page-header title="Add/Edit Employee"></page-header>
+        <page-header
+          title="${this.employee.id ? 'Update' : 'Add'} Employee"
+        ></page-header>
         <employee-form
-          .employee=${this.selectedEmployee}
+          .employee=${this.employee}
           @save-employee=${this._handleSave}
           @cancel=${this._handleCancel}
         ></employee-form>
       </div>
+
+      <app-modal
+        ?isOpen=${this.showSaveModal}
+        title=${this.employee.id ? 'Update Employee' : 'Add Employee'}
+        message=${this.employee.id
+          ? 'Are you sure you want to update this employee?'
+          : 'Are you sure you want to add this employee?'}
+        confirmText="Save"
+        cancelText="Cancel"
+        @confirm=${this._handleSaveConfirm}
+        @cancel=${this._handleSaveCancel}
+      ></app-modal>
     `;
   }
 }

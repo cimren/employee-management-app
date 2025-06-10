@@ -1,12 +1,17 @@
 import { LitElement, html, css } from 'lit';
-import { employeeService } from '../services/employee-service.js';
+import { store } from '../store/store.js';
+import { navigate } from '../utils/helpers.js';
+import { deleteEmployee } from '../store/employeeSlice.js';
 import '../components/header/page-header.js';
+import '../components/employee/employee-list.js';
+import '../components/modal/app-modal.js';
 import 'fa-icons';
 
 export class EmployeesPage extends LitElement {
   static properties = {
     employees: { type: Array },
     selectedEmployee: { type: Object },
+    showDeleteModal: { type: Boolean },
   };
 
   static styles = css`
@@ -25,26 +30,40 @@ export class EmployeesPage extends LitElement {
     super();
     this.employees = [];
     this.selectedEmployee = null;
+    this.showDeleteModal = false;
   }
 
-  async firstUpdated() {
-    await this._loadEmployees();
+  connectedCallback() {
+    super.connectedCallback();
+    // Get data from the store
+    this._updateFromStore();
+    // Subscribe to store updates
+    store.subscribe(() => this._updateFromStore());
   }
 
-  async _loadEmployees() {
-    this.employees = await employeeService.getEmployees();
+  _updateFromStore() {
+    const state = store.getState();
+    this.employees = state.employee.employees;
   }
 
   _handleEdit(employee) {
-    this.selectedEmployee = { ...employee.detail };
-    //TODO: Navigate to employee form page with selected employee data
+    const path = `/employee-form?id=${employee.detail.id}`;
+    navigate(path);
   }
 
-  async _handleDelete(employee) {
-    if (confirm('Are you sure you want to delete this employee?')) {
-      await employeeService.deleteEmployee(employee.id);
-      await this._loadEmployees();
-    }
+  _handleDeleteConfirm() {
+    // Perform the delete operation
+    store.dispatch(deleteEmployee(this.selectedEmployee.id));
+    this.showDeleteModal = false;
+  }
+
+  _handleDeleteCancel() {
+    this.showDeleteModal = false;
+  }
+
+  _handleDelete(employee) {
+    this.selectedEmployee = employee.detail;
+    this.showDeleteModal = true;
   }
 
   render() {
@@ -57,6 +76,15 @@ export class EmployeesPage extends LitElement {
           @delete-employee=${this._handleDelete}
         ></employee-list>
       </div>
+      <app-modal
+        ?isOpen=${this.showDeleteModal}
+        title="Are you sure?"
+        message="Selected employee will be deleted."
+        confirmText="Proceed"
+        cancelText="Cancel"
+        @confirm=${this._handleDeleteConfirm}
+        @cancel=${this._handleDeleteCancel}
+      ></app-modal>
     `;
   }
 }

@@ -1,6 +1,4 @@
 import { LitElement, html, css } from 'lit';
-import '../components/employee/employee-list.js';
-import '../components/employee/employee-form.js';
 import '../components/header/page-header.js';
 
 export class HomePage extends LitElement {

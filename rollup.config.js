@@ -1,4 +1,4 @@
-import { nodeResolve } from '@rollup/plugin-node-resolve';
+import resolve from '@rollup/plugin-node-resolve';
 import terser from '@rollup/plugin-terser';
 
 export default {
@@ -8,5 +8,11 @@ export default {
     format: 'es',
     sourcemap: true,
   },
-  plugins: [nodeResolve(), terser()],
+  plugins: [
+    resolve({
+      browser: true,
+      preferBuiltins: false,
+    }),
+    terser(),
+  ],
 };
