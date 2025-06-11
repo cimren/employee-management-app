@@ -113,11 +113,12 @@ const styles = css`
   /* Actions */
   .actions {
     display: flex;
+    justify-content: center;
     gap: 0.5rem;
   }
 
   .action-button {
-    padding: 0.25rem 0.5rem;
+    padding: 0.25rem;
     cursor: pointer;
     font-size: 0.875rem;
   }

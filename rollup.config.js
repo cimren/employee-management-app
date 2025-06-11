@@ -22,21 +22,9 @@ export default {
     }),
     // Print bundle summary
     summary(),
+    // Copy any static assets to build directory
     copy({
-      targets: [
-        {
-          src: 'node_modules/@fortawesome/fontawesome-free/sprites/*.svg',
-          dest: 'dist/sprites',
-        },
-        {
-          src: 'node_modules/@fortawesome/fontawesome-free/webfonts/*',
-          dest: 'dist/',
-        },
-        {
-          src: 'node_modules/@fortawesome/fontawesome-free/css/all.min.css',
-          dest: 'dist/css',
-        },
-      ],
+      patterns: ['images/**/*'],
     }),
   ],
   output: {

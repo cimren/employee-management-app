@@ -1,6 +1,10 @@
-import { LitElement, html, css } from 'lit';
+import { LitElement, html } from 'lit';
 import styles from './employee-list.styles.js';
 import 'fa-icons';
+import '../../icon/list-view-icon.js';
+import '../../icon/table-view-icon.js';
+import '../../icon/pencil-icon.js';
+import '../../icon/trash-icon.js';
 
 export class EmployeeList extends LitElement {
   static properties = {
@@ -113,11 +117,9 @@ export class EmployeeList extends LitElement {
                     : ''}"
                   @click=${() => this._handleViewChange('list')}
                 >
-                  <fa-icon
-                    class="fas fa-align-justify"
+                  <list-view-icon
                     color="${this.viewMode === 'list' ? 'white' : '#f60'}"
-                    size="2em"
-                  ></fa-icon>
+                  ></list-view-icon>
                 </button>
                 <button
                   class="view-button ${this.viewMode === 'table'
@@ -125,11 +127,9 @@ export class EmployeeList extends LitElement {
                     : ''}"
                   @click=${() => this._handleViewChange('table')}
                 >
-                  <fa-icon
-                    class="fas fa-th"
+                  <table-view-icon
                     color="${this.viewMode === 'table' ? 'white' : '#f60'}"
-                    size="2em"
-                  ></fa-icon>
+                  ></table-view-icon>
                 </button>
               </div>
             `}
@@ -146,10 +146,10 @@ export class EmployeeList extends LitElement {
     return html`
       <div class="actions">
         <div class="action-button" @click=${() => this._handleEdit(employee)}>
-          <fa-icon class="fas fa-edit" color="#f60" size="2em"></fa-icon>
+          <pencil-icon></pencil-icon>
         </div>
         <div class="action-button" @click=${() => this._handleDelete(employee)}>
-          <fa-icon class="fas fa-trash" color="#f60" size="2em"></fa-icon>
+          <trash-icon></trash-icon>
         </div>
       </div>
     `;
