@@ -1,5 +1,7 @@
 import { LitElement, html, css } from 'lit';
 import { Router } from '@vaadin/router';
+import { msg, updateWhenLocaleChanges } from '@lit/localize';
+import { setLocale } from '../../localization.js';
 
 export class AppHeader extends LitElement {
   static properties = {
@@ -47,10 +49,28 @@ export class AppHeader extends LitElement {
     nav a:hover {
       background-color: var(--primary-hover);
     }
+    .language-selector {
+      display: flex;
+      align-items: center;
+    }
+    .language-selector select {
+      padding: 0.5rem;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .language-selector select:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
   `;
 
   constructor() {
     super();
+    updateWhenLocaleChanges(this);
+    this.setLocale = setLocale;
+
     this.title = 'ING';
   }
 
@@ -58,15 +78,27 @@ export class AppHeader extends LitElement {
     Router.go(path);
   }
 
+  async setLanguage(locale) {
+    await setLocale(locale);
+    this.requestUpdate();
+  }
+
   render() {
     return html`
       <header>
         <a class="logo" @click=${() => this._navigate('/')}>${this.title}</a>
         <nav>
-          <a href="/employees">Employees</a>
-          <a href="/employee-form">Add New</a>
-          <a @click=${() => this._navigate('/')}>TR</a>
-        </nav>
+          <a href="/employees">${msg('Employees')}</a>
+          <a href="/employee-form">${msg('Add New')}</a>
+        </nav>        
+        <div class="language-selector">
+          <custom-select
+            .options=${[
+              { label: 'EN', value: 'en' },
+              { label: 'TR', value: 'tr' },
+            ]}
+            @change=${(e) => this.setLanguage(e.detail.value)}
+            .value=${'en'}            
       </header>
     `;
   }

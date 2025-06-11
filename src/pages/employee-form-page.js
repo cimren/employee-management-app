@@ -3,7 +3,7 @@ import '../components/header/page-header.js';
 import { store } from '../store/store.js';
 import { addEmployee, updateEmployee } from '../store/employeeSlice.js';
 import { navigate } from '../utils/helpers.js';
-import '../components/employee/employee-form.js';
+import '../components/employee/employee-form/employee-form.js';
 import '../components/modal/app-modal.js';
 
 const initialEmployee = {

@@ -1,4 +1,5 @@
 import { LitElement, html, css } from 'lit';
+import styles from './employee-list.styles.js';
 import 'fa-icons';
 
 export class EmployeeList extends LitElement {
@@ -8,151 +9,10 @@ export class EmployeeList extends LitElement {
     searchQuery: { type: String },
     currentPage: { type: Number },
     itemsPerPage: { type: Number },
+    isMobile: { type: Boolean },
   };
 
-  static styles = css`
-    :host {
-      display: block;
-    }
-
-    .controls {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1rem;
-    }
-
-    .view-controls {
-      display: flex;
-      gap: 0.5rem;
-    }
-
-    .view-button {
-      padding: 0.5rem;
-      border: 1px solid var(--border-color);
-      background: none;
-      cursor: pointer;
-      border-radius: 4px;
-    }
-
-    .view-button.active {
-      background-color: var(--primary-color);
-      color: white;
-      border-color: var(--primary-color);
-    }
-
-    .search-input {
-      padding: 0.5rem;
-      border: 1px solid var(--border-color);
-      border-radius: 4px;
-      width: 300px;
-    }
-
-    /* List View */
-    .list-view {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    .employee-card {
-      background-color: var(--card-background);
-      padding: 1rem;
-      border-radius: 8px;
-      box-shadow: var(--shadow);
-    }
-
-    .employee-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 0.5rem;
-    }
-
-    .employee-name {
-      font-size: 1.2rem;
-      font-weight: 500;
-      color: var(--text-color);
-    }
-
-    .employee-details {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 0.5rem;
-      color: var(--text-secondary);
-    }
-
-    .detail-item {
-      display: flex;
-      gap: 0.5rem;
-    }
-
-    .detail-label {
-      font-weight: 500;
-    }
-
-    /* Table View */
-    .table-view {
-      width: 100%;
-      border-collapse: collapse;
-      background-color: var(--card-background);
-      border: 1px solid var(--border-color);
-    }
-
-    .table-view th,
-    .table-view td {
-      padding: 1rem;
-      text-align: center;
-    }
-
-    .table-view th {
-      color: var(--primary-color);
-      font-weight: 500;
-      background-color: var(--card-background);
-    }
-
-    .table-view tr {
-      border: 1px solid var(--border-color);
-    }
-
-    .table-view tr:hover {
-      background-color: var(--hover-color);
-    }
-
-    /* Actions */
-    .actions {
-      display: flex;
-      gap: 0.5rem;
-    }
-
-    .action-button {
-      padding: 0.25rem 0.5rem;
-      cursor: pointer;
-      font-size: 0.875rem;
-    }
-
-    /* Pagination */
-    .pagination {
-      display: flex;
-      justify-content: center;
-      gap: 0.5rem;
-      margin-top: 2rem;
-    }
-
-    .page-button {
-      padding: 0.5rem 1rem;
-      border: 1px solid var(--border-color);
-      background: none;
-      cursor: pointer;
-      border-radius: 4px;
-    }
-
-    .page-button.active {
-      background-color: var(--primary-color);
-      color: white;
-      border-color: var(--primary-color);
-    }
-  `;
+  static styles = [styles];
 
   constructor() {
     super();
@@ -161,6 +21,24 @@ export class EmployeeList extends LitElement {
     this.searchQuery = '';
     this.currentPage = 1;
     this.itemsPerPage = 5;
+    this.isMobile = false;
+    this._mediaQuery = window.matchMedia('(max-width: 768px)');
+    this._handleResize = this._handleResize.bind(this);
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    this._mediaQuery.addEventListener('change', this._handleResize);
+    this._handleResize(this._mediaQuery); // initial check
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    this._mediaQuery.removeEventListener('change', this._handleResize);
+  }
+
+  _handleResize(e) {
+    this.isMobile = e.matches;
   }
 
   _handleViewChange(mode) {
@@ -225,31 +103,39 @@ export class EmployeeList extends LitElement {
           .value=${this.searchQuery}
           @input=${this._handleSearch}
         />
-        <div class="view-controls">
-          <button
-            class="view-button ${this.viewMode === 'list' ? 'active' : ''}"
-            @click=${() => this._handleViewChange('list')}
-          >
-            <fa-icon
-              class="fas fa-align-justify"
-              color="${this.viewMode === 'list' ? 'white' : '#f60'}"
-              size="2em"
-            ></fa-icon>
-          </button>
-          <button
-            class="view-button ${this.viewMode === 'table' ? 'active' : ''}"
-            @click=${() => this._handleViewChange('table')}
-          >
-            <fa-icon
-              class="fas fa-th"
-              color="${this.viewMode === 'table' ? 'white' : '#f60'}"
-              size="2em"
-            ></fa-icon>
-          </button>
-        </div>
+        ${this.isMobile
+          ? ''
+          : html`
+              <div class="view-controls">
+                <button
+                  class="view-button ${this.viewMode === 'list'
+                    ? 'active'
+                    : ''}"
+                  @click=${() => this._handleViewChange('list')}
+                >
+                  <fa-icon
+                    class="fas fa-align-justify"
+                    color="${this.viewMode === 'list' ? 'white' : '#f60'}"
+                    size="2em"
+                  ></fa-icon>
+                </button>
+                <button
+                  class="view-button ${this.viewMode === 'table'
+                    ? 'active'
+                    : ''}"
+                  @click=${() => this._handleViewChange('table')}
+                >
+                  <fa-icon
+                    class="fas fa-th"
+                    color="${this.viewMode === 'table' ? 'white' : '#f60'}"
+                    size="2em"
+                  ></fa-icon>
+                </button>
+              </div>
+            `}
       </div>
 
-      ${this.viewMode === 'list'
+      ${this.viewMode === 'list' || this.isMobile
         ? this._renderListView()
         : this._renderTableView()}
       ${this._renderPagination()}

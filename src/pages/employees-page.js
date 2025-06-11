@@ -3,7 +3,7 @@ import { store } from '../store/store.js';
 import { navigate } from '../utils/helpers.js';
 import { deleteEmployee } from '../store/employeeSlice.js';
 import '../components/header/page-header.js';
-import '../components/employee/employee-list.js';
+import '../components/employee/employee-list/employee-list.js';
 import '../components/modal/app-modal.js';
 import 'fa-icons';
 

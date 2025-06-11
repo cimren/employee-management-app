@@ -1,6 +1,16 @@
-import { LitElement, html, css } from 'lit';
-import { formStyles } from '../../utils/formStyles.js';
+import { LitElement, html } from 'lit';
+import { formStyles } from '../../../utils/formStyles.js';
 
+/**
+ * @typedef {Object} TextFieldProperties
+ * @property {string} label - The label for the text field.
+ * @property {string} name - The name attribute for the text input.
+ * @property {string} type - The type of the text input (e.g., "text", "email", "password").
+ * @property {string} value - The current value of the text input.
+ * @property {string} placeholder - Placeholder text for the input.
+ * @property {string} errorMessage - Error message to display if the input is invalid.
+ * @property {boolean} isRequired - Whether the input is required.
+ */
 export class TextField extends LitElement {
   static properties = {
     label: { type: String },
@@ -39,7 +49,7 @@ export class TextField extends LitElement {
           .value="${this.value}"
           placeholder="${this.placeholder}"
           @input="${this._handleInputChange}"
-          ?required="${this.required}"
+          ?required="${this.isRequired}"
         />
         ${this.errorMessage
           ? html`<div class="error">${this.errorMessage}</div>`

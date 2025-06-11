@@ -1,61 +1,16 @@
 import { LitElement, html, css } from 'lit';
-import { departments, positions } from '../../utils/constants.js';
-import '../input/text-field.js';
-import '../input/date-picker.js';
-import '../input/app-select.js';
+import { departments, positions } from '../../../utils/constants.js';
+import '../../input/text-field/text-field.js';
+import '../../input/date-picker/date-picker.js';
+import '../../input/select-box/select-box.js';
+import styles from './employee-form.styles.js';
 
 export class EmployeeForm extends LitElement {
   static properties = {
     employee: { type: Object },
   };
 
-  static styles = css`
-    :host {
-      display: block;
-    }
-
-    .form-container {
-      background-color: var(--card-background);
-      padding: 2rem;
-      border-radius: 8px;
-      box-shadow: var(--shadow);
-    }
-
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-    }
-
-    .buttons {
-      display: flex;
-      justify-content: flex-end;
-      gap: 1rem;
-      margin-top: 2rem;
-    }
-
-    button {
-      padding: 0.5rem 1rem;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 1rem;
-    }
-
-    .save-button {
-      background-color: var(--primary-color);
-      color: white;
-    }
-
-    .cancel-button {
-      background-color: var(--background-color);
-      color: var(--text-color);
-    }
-
-    button:hover {
-      opacity: 0.9;
-    }
-  `;
+  static styles = [styles];
 
   constructor() {
     super();
@@ -73,10 +28,12 @@ export class EmployeeForm extends LitElement {
 
   _handleInput(e) {
     const { name, value } = e.target;
-    this.employee = {
-      ...this.employee,
-      [name]: value,
-    };
+    if (value) {
+      this.employee = {
+        ...this.employee,
+        [name]: value,
+      };
+    }
   }
 
   _handleSubmit(e) {
@@ -166,28 +123,30 @@ export class EmployeeForm extends LitElement {
         </div>
 
         <div class="form-row">
-          <app-select
+          <custom-select
             label="Department"
             name="department"
             placeholder="Select Department"
+            isRequired
             .options=${departments.map((dept) => ({
               value: dept,
               label: dept,
             }))}
             .value=${department}
             @change=${this._handleInput}
-          ></app-select>
-          <app-select
+          ></custom-select>
+          <custom-select
             label="Position"
             name="position"
             placeholder="Select Position"
-            .options=${positions.map((dept) => ({
-              value: dept,
-              label: dept,
+            isRequired
+            .options=${positions.map((pos) => ({
+              value: pos,
+              label: pos,
             }))}
             .value=${position}
             @change=${this._handleInput}
-          ></app-select>
+          ></custom-select>
         </div>
 
         <div class="buttons">
