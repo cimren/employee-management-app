@@ -1,22 +1,35 @@
+// Import rollup plugins
+import { rollupPluginHTML as html } from '@web/rollup-plugin-html';
+import { copy } from '@web/rollup-plugin-copy';
 import resolve from '@rollup/plugin-node-resolve';
 import terser from '@rollup/plugin-terser';
-import { rollupPluginHTML } from '@web/rollup-plugin-html';
+import summary from 'rollup-plugin-summary';
 
 export default {
-  input: 'src/index.js',
-  output: {
-    dir: 'dist',
-    format: 'es',
-    sourcemap: true,
-  },
   plugins: [
-    rollupPluginHTML({
+    // Entry point for application build; can specify a glob to build multiple
+    // HTML files for non-SPA app
+    html({
       input: 'index.html',
     }),
-    resolve({
-      browser: true,
-      preferBuiltins: false,
+    // Resolve bare module specifiers to relative paths
+    resolve(),
+    // Minify JS
+    terser({
+      ecma: 2020,
+      module: true,
+      warnings: true,
     }),
-    terser(),
+    // Print bundle summary
+    summary(),
+    // Copy any static assets to build directory
+    copy({
+      patterns: ['images/**/*'],
+    }),
   ],
+  output: {
+    dir: 'dist',
+    sourcemap: true,
+  },
+  preserveEntrySignatures: 'strict',
 };

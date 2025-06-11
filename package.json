@@ -21,14 +21,17 @@
     "@esm-bundle/chai": "^4.3.4-fix.0",
     "@lit/localize-tools": "^0.8.0",
     "@open-wc/testing": "^4.0.0",
+    "@rollup/plugin-commonjs": "^28.0.3",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-terser": "^0.4.4",
     "@web/dev-server": "^0.4.6",
+    "@web/rollup-plugin-copy": "^0.5.1",
     "@web/rollup-plugin-html": "^2.3.0",
     "@web/test-runner": "^0.20.2",
     "eslint": "^9.28.0",
     "prettier": "^3.2.5",
-    "rollup": "^4.9.1"
+    "rollup": "^4.9.1",
+    "rollup-plugin-summary": "^3.0.1"
   },
   "resolutions": {
     "@web/dev-server": "^0.3.0",
