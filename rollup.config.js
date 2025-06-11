@@ -4,6 +4,7 @@ import { copy } from '@web/rollup-plugin-copy';
 import resolve from '@rollup/plugin-node-resolve';
 import terser from '@rollup/plugin-terser';
 import summary from 'rollup-plugin-summary';
+import url from '@rollup/plugin-url';
 
 export default {
   plugins: [
@@ -23,8 +24,26 @@ export default {
     // Print bundle summary
     summary(),
     // Copy any static assets to build directory
+    url({
+      include: ['**/*.woff', '**/*.woff2', '**/*.ttf', '**/*.svg'],
+      limit: 0,
+      fileName: 'assets/[name][extname]',
+    }),
     copy({
-      patterns: ['images/**/*'],
+      targets: [
+        {
+          src: 'node_modules/@fortawesome/fontawesome-free/sprites/*.svg',
+          dest: 'dist/sprites',
+        },
+        {
+          src: 'node_modules/@fortawesome/fontawesome-free/webfonts/*',
+          dest: 'dist/',
+        },
+        {
+          src: 'node_modules/@fortawesome/fontawesome-free/css/all.min.css',
+          dest: 'dist/css',
+        },
+      ],
     }),
   ],
   output: {

@@ -24,6 +24,7 @@
     "@rollup/plugin-commonjs": "^28.0.3",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-url": "^8.0.2",
     "@web/dev-server": "^0.4.6",
     "@web/rollup-plugin-copy": "^0.5.1",
     "@web/rollup-plugin-html": "^2.3.0",
