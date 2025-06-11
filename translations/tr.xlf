@@ -18,6 +18,26 @@
   <source>Welcome to the Employee Management System!</source>
   <target>Çalışan Yönetim Sistemine Hoş Geldiniz!</target>
 </trans-unit>
+<trans-unit id="s3db6c3999daeecdb">
+  <source>Employee List</source>
+  <target>Çalışan Listesi</target>
+</trans-unit>
+<trans-unit id="s268ecd1cef45a9a8">
+  <source>Are you sure?</source>
+  <target>Emin misiniz?</target>
+</trans-unit>
+<trans-unit id="sd87f80a8387a9e36">
+  <source>Selected employee will be deleted.</source>
+  <target>Seçilen çalışan silinecektir.</target>
+</trans-unit>
+<trans-unit id="s2714784162ec459d">
+  <source>Proceed</source>
+  <target>Devam Et</target>
+</trans-unit>
+<trans-unit id="s2ceb11be2290bb1b">
+  <source>Cancel</source>
+  <target>İptal</target>
+</trans-unit>
 </body>
 </file>
 </xliff>

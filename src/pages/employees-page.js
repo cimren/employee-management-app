@@ -2,6 +2,7 @@ import { LitElement, html, css } from 'lit';
 import { store } from '../store/store.js';
 import { navigate } from '../utils/helpers.js';
 import { deleteEmployee } from '../store/employeeSlice.js';
+import { msg, updateWhenLocaleChanges } from '@lit/localize';
 import '../components/header/page-header.js';
 import '../components/employee/employee-list/employee-list.js';
 import '../components/modal/app-modal.js';
@@ -28,6 +29,7 @@ export class EmployeesPage extends LitElement {
 
   constructor() {
     super();
+    updateWhenLocaleChanges(this);
     this.employees = [];
     this.selectedEmployee = null;
     this.showDeleteModal = false;
@@ -69,7 +71,7 @@ export class EmployeesPage extends LitElement {
   render() {
     return html`
       <div class="container">
-        <page-header title="Employee List"></page-header>
+        <page-header title="${msg('Employee List')}"></page-header>
         <employee-list
           .employees=${this.employees}
           @edit-employee=${this._handleEdit}
@@ -78,10 +80,10 @@ export class EmployeesPage extends LitElement {
       </div>
       <app-modal
         ?isOpen=${this.showDeleteModal}
-        title="Are you sure?"
-        message="Selected employee will be deleted."
-        confirmText="Proceed"
-        cancelText="Cancel"
+        title="${msg('Are you sure?')}"
+        message="${msg('Selected employee will be deleted.')}"
+        confirmText="${msg('Proceed')}"
+        cancelText="${msg('Cancel')}"
         @confirm=${this._handleDeleteConfirm}
         @cancel=${this._handleDeleteCancel}
       ></app-modal>

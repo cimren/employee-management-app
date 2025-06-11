@@ -1,7 +1,6 @@
 import { LitElement, html, css } from 'lit';
 import { msg, updateWhenLocaleChanges } from '@lit/localize';
 import '../components/header/page-header.js';
-import '../components/custom-table.js';
 
 export class HomePage extends LitElement {
   static styles = css`
@@ -27,7 +26,6 @@ export class HomePage extends LitElement {
         <page-header title="${msg('Employee Management System')}"></page-header>
         <p>${msg('Welcome to the Employee Management System!')}</p>
       </div>
-      <responsive-table></responsive-table>
     `;
   }
 }
