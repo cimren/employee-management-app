@@ -104,7 +104,7 @@ export class EmployeeList extends LitElement {
         <input
           type="text"
           class="search-input"
-          placeholder="Search employees..."
+          placeholder="${msg('Search employees')}..."
           .value=${this.searchQuery}
           @input=${this._handleSearch}
         />

@@ -114,9 +114,9 @@
   <source>Invalid email address</source>
   <target>Geçersiz e-posta adresi</target>
 </trans-unit>
-<trans-unit id="sbf38b62ad692ac35">
-  <source>Invalid phone number</source>
-  <target>Geçersiz telefon numarası</target>
+<trans-unit id="s6f982c1b725f1dc8">
+  <source>Search employees</source>
+  <target>Çalışan ara</target>
 </trans-unit>
 </body>
 </file>
