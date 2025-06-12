@@ -20,6 +20,7 @@ const styles = css`
     display: flex;
     align-items: center;
     cursor: pointer;
+    z-index: 1000;
   }
 
   .logo-container img {
@@ -38,6 +39,12 @@ const styles = css`
     opacity: 0.8;
   }
 
+  .nav-container {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
   nav {
     display: flex;
     gap: 1rem;
@@ -54,6 +61,14 @@ const styles = css`
 
   nav a:hover {
     background-color: var(--hover-color);
+  }
+
+  .hamburger-menu {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
   }
 
   .language-selector {
@@ -75,12 +90,39 @@ const styles = css`
   }
 
   @media (max-width: 768px) {
+    .nav-container {
+      position: fixed;
+      top: 0;
+      left: -100%;
+      padding-top: 72px;
+      background-color: var(--hover-color);
+      width: 70%;
+      height: 100vh;
+      display: flex;
+      gap: 1.5rem;
+      flex-direction: column;
+      align-items: center;
+      transition: all 0.3s;
+      z-index: 1;
+    }
+
     nav {
-      gap: 0.5rem;
+      flex-direction: column;
+      border-top: 1px solid var(--border-color);
+      width: 100%;
+      align-items: center;
+      padding-top: 1.5rem;
     }
 
     nav a {
       padding: 0.25rem;
+    }
+    .hamburger-menu {
+      display: flex;
+    }
+
+    .show-nav {
+      left: 0;
     }
   }
 `;

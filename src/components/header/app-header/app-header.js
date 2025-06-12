@@ -2,11 +2,13 @@ import { LitElement, html, css } from 'lit';
 import { Router } from '@vaadin/router';
 import { msg, updateWhenLocaleChanges } from '@lit/localize';
 import { setLocale } from '../../../localization.js';
+import '../../icon/list-view-icon.js';
 import styles from './app-header.styles.js';
 
 export class AppHeader extends LitElement {
   static properties = {
     title: { type: String },
+    showMenu: { type: Boolean },
   };
 
   static styles = [styles];
@@ -15,12 +17,15 @@ export class AppHeader extends LitElement {
     super();
     updateWhenLocaleChanges(this);
     this.setLocale = setLocale;
+    this.showMenu = false;
 
     this.title = 'ING';
   }
 
-  _navigate(path) {
-    Router.go(path);
+  _navigate(e) {
+    e.preventDefault();
+    this.showMenu = false;
+    Router.go(e.target.href);
   }
 
   async setLanguage(locale) {
@@ -31,25 +36,36 @@ export class AppHeader extends LitElement {
   render() {
     return html`
       <header>
-        <div class="logo-container" @click=${() => this._navigate('/')}>
-          <img            
-            src="src/assets/images/ing-logo.png"
-            alt="ING Logo" />            
+        <div class="logo-container" @click=${this._navigate}>
+          <img src="src/assets/images/ing-logo.png" alt="ING Logo" />
           <span class="logo">${this.title}</span>
         </div>
-        <nav>
-          <a href="/employees">${msg('Employees')}</a>
-          <a href="/employee-form">${msg('Add New')}</a>
-        </nav>        
-        <div class="language-selector">
-          <select-box
-            .options=${[
-              { label: 'EN', value: 'en' },
-              { label: 'TR', value: 'tr' },
-            ]}
-            @change=${(e) => this.setLanguage(e.detail.value)}
-            .value=${'en'}
-          ></select-box>           
+        <div class="nav-container ${this.showMenu ? 'show-nav' : ''}">
+          <nav>
+            <a href="/employees" @click=${this._navigate}
+              >${msg('Employees')}</a
+            >
+            <a href="/employee-form" @click=${this._navigate}
+              >${msg('Add New')}</a
+            >
+          </nav>
+          <div class="language-selector">
+            <select-box
+              .options=${[
+                { label: 'EN', value: 'en' },
+                { label: 'TR', value: 'tr' },
+              ]}
+              @change=${(e) => this.setLanguage(e.detail.value)}
+              .value=${'en'}
+            ></select-box>
+          </div>
+        </div>
+        <div
+          class="hamburger-menu"
+          @click=${() => (this.showMenu = !this.showMenu)}
+        >
+          <list-view-icon color="#f60"></list-view-icon>
+        </div>
       </header>
     `;
   }
