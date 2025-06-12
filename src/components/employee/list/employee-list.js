@@ -1,6 +1,5 @@
 import { LitElement, html } from 'lit';
 import styles from './employee-list.styles.js';
-import 'fa-icons';
 import '../../icon/list-view-icon.js';
 import '../../icon/table-view-icon.js';
 import '../../icon/pencil-icon.js';

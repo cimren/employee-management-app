@@ -6,8 +6,8 @@ import { employees } from '../data/employeeData';
 
 const initialState = {
   /* Initial employee data */
-  employees: employees, // This can be replaced with an empty array if you want to start with no employees
-  /* Selected employee for editing or viewing details */
+  employees: employees, // This can be replaced with an empty array to start with no employees
+  /* Selected employee for editing or deleting */
   selectedEmployee: null,
 };
 

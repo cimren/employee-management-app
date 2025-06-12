@@ -1,25 +1,12 @@
-import { LitElement, html, css } from 'lit';
+import { LitElement, html } from 'lit';
+import styles from './page-header.styles.js';
 
 export class PageHeader extends LitElement {
   static properties = {
     title: { type: String },
   };
 
-  static styles = css`
-    .container {
-      max-width: 1440px;
-      margin: 0 auto;
-      padding: 2rem 1rem;
-    }
-
-    .header {
-      margin-bottom: 2rem;
-    }
-
-    .header h1 {
-      color: var(--primary-color);
-    }
-  `;
+  static styles = [styles];
 
   constructor() {
     super();

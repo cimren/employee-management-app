@@ -2,7 +2,7 @@ import { LitElement, html, css } from 'lit';
 import { formStyles } from '../../../utils/formStyles';
 import styles from './select-box.styles.js';
 
-class CustomSelect extends LitElement {
+class SelectBox extends LitElement {
   static properties = {
     label: { type: String },
     name: { type: String },
@@ -103,6 +103,7 @@ class CustomSelect extends LitElement {
         >`}
         <div
           class="select-box"
+          testid="select-box"
           @click=${this.toggleDropdown}
           role="combobox"
           aria-expanded="${this._open}"
@@ -110,7 +111,9 @@ class CustomSelect extends LitElement {
           aria-haspopup="listbox"
           aria-activedescendant=${this.value || ''}
         >
-          <span>${this.getSelectedLabel() || this.placeholder}</span>
+          <span class="placeholder"
+            >${this.getSelectedLabel() || this.placeholder}</span
+          >
           ${this._renderArrow()}
         </div>
         ${this._open ? this._renderOptions() : ''}
@@ -119,4 +122,4 @@ class CustomSelect extends LitElement {
   }
 }
 
-customElements.define('custom-select', CustomSelect);
+customElements.define('select-box', SelectBox);

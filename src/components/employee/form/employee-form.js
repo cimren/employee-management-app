@@ -123,7 +123,7 @@ export class EmployeeForm extends LitElement {
         </div>
 
         <div class="form-row">
-          <custom-select
+          <select-box
             label="Department"
             name="department"
             placeholder="Select Department"
@@ -134,8 +134,8 @@ export class EmployeeForm extends LitElement {
             }))}
             .value=${department}
             @change=${this._handleInput}
-          ></custom-select>
-          <custom-select
+          ></select-box>
+          <select-box
             label="Position"
             name="position"
             placeholder="Select Position"
@@ -146,7 +146,7 @@ export class EmployeeForm extends LitElement {
             }))}
             .value=${position}
             @change=${this._handleInput}
-          ></custom-select>
+          ></select-box>
         </div>
 
         <div class="buttons">

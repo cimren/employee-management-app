@@ -1,12 +1,12 @@
 import { LitElement, html, css } from 'lit';
-import { store } from '../store/store.js';
-import { navigate } from '../utils/helpers.js';
-import { deleteEmployee } from '../store/employeeSlice.js';
+import { store } from '../../store/store.js';
+import { navigate } from '../../utils/helpers.js';
+import { deleteEmployee } from '../../store/employeeSlice.js';
 import { msg, updateWhenLocaleChanges } from '@lit/localize';
-import '../components/header/page-header.js';
-import '../components/employee/employee-list/employee-list.js';
-import '../components/modal/app-modal.js';
-import 'fa-icons';
+import '../../components/header/page-header/page-header.js';
+import '../../components/employee/list/employee-list.js';
+import '../../components/modal/app-modal.js';
+import styles from './employees-page.styles.js';
 
 export class EmployeesPage extends LitElement {
   static properties = {
@@ -15,17 +15,7 @@ export class EmployeesPage extends LitElement {
     showDeleteModal: { type: Boolean },
   };
 
-  static styles = css`
-    :host {
-      display: block;
-    }
-
-    .container {
-      max-width: 1440px;
-      margin: 0 auto;
-      padding: 2rem 1rem;
-    }
-  `;
+  static styles = [styles];
 
   constructor() {
     super();

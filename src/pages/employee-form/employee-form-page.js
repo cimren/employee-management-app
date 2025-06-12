@@ -1,10 +1,11 @@
 import { LitElement, html, css } from 'lit';
-import '../components/header/page-header.js';
-import { store } from '../store/store.js';
-import { addEmployee, updateEmployee } from '../store/employeeSlice.js';
-import { navigate } from '../utils/helpers.js';
-import '../components/employee/employee-form/employee-form.js';
-import '../components/modal/app-modal.js';
+import '../../components/header/page-header/page-header.js';
+import { store } from '../../store/store.js';
+import { addEmployee, updateEmployee } from '../../store/employeeSlice.js';
+import { navigate } from '../../utils/helpers.js';
+import '../../components/employee/form/employee-form.js';
+import '../../components/modal/app-modal.js';
+import styles from './employee-form-page.styles.js';
 
 const initialEmployee = {
   firstName: '',
@@ -23,17 +24,7 @@ export class EmployeeFormPage extends LitElement {
     showSaveModal: { type: Boolean },
   };
 
-  static styles = css`
-    :host {
-      display: block;
-    }
-
-    .container {
-      max-width: 1440px;
-      margin: 0 auto;
-      padding: 2rem 1rem;
-    }
-  `;
+  static styles = [styles];
 
   constructor() {
     super();

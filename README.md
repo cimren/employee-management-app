@@ -42,22 +42,43 @@ employee-management-app/
 ├── src/
 │   ├── components/
 │   │   └── header/
-│   │       └── app-header.js
+│   │   |   └── app-header
+│   │   |   |   └── app-header.js
+│   │   |   └── page-header
+│   │   |   │   └── page-header.js
 │   │   ├── pages/
-│   │   │   └── home-page.js
+│   │   │   └── home
+│   │   │   │   └── home-page.js
+│   │   │   └── employees
+│   │   │   │   └── employees-page.js
+│   │   │   └── employee-form
+│   │   │   │   └── employee-form-page.js
 │   │   ├── styles/
 │   │   │   └── global.css
 │   │   ├── utils/
 │   │   │   └── helpers.js
-│   │   ├── services/
-│   │   │   └── api.js
 │   │   ├── store/
 │   │   ├── index.js
 │   │   └── my-app.js
-│   ├── index.html
-│   ├── package.json
-│   ├── rollup.config.js
-│   └── .eslintrc.json
+│   ├── data/
+│   ├── generated/
+│   ├── pages/
+│   ├── store/
+│   ├── styles/
+│   ├── utils/
+│   ├── index.js
+│   ├── localization.js
+│   ├── my-app.js
+├── translations/
+|── .eslintignore
+|── .eslintrc.json
+|── .gitignore
+├── index.html
+├── lit-localize.json
+├── package-lock.json
+├── package.json
+├── README.md
+├── rollup.config.js
 ```
 
 ## Development

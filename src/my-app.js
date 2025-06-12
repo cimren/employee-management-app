@@ -1,9 +1,9 @@
 import { LitElement, html, css } from 'lit';
 import { Router } from '@vaadin/router';
-import './components/header/app-header.js';
-import './pages/home-page.js';
-import './pages/employees-page.js';
-import './pages/employee-form-page.js';
+import './components/header/app-header/app-header.js';
+import './pages/home/home-page.js';
+import './pages/employees/employees-page.js';
+import './pages/employee-form/employee-form-page.js';
 
 export class MyApp extends LitElement {
   static styles = css`
