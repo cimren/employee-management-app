@@ -2,6 +2,7 @@ import { LitElement, html, css } from 'lit';
 import '../../components/header/page-header/page-header.js';
 import { store } from '../../store/store.js';
 import { addEmployee, updateEmployee } from '../../store/employeeSlice.js';
+import { msg, updateWhenLocaleChanges } from '@lit/localize';
 import { navigate } from '../../utils/helpers.js';
 import '../../components/employee/form/employee-form.js';
 import '../../components/modal/app-modal.js';
@@ -28,6 +29,7 @@ export class EmployeeFormPage extends LitElement {
 
   constructor() {
     super();
+    updateWhenLocaleChanges(this);
     this.employee = initialEmployee;
     this.showSaveModal = false;
   }
@@ -78,7 +80,9 @@ export class EmployeeFormPage extends LitElement {
     return html`
       <div class="container">
         <page-header
-          title="${this.employee.id ? 'Update' : 'Add'} Employee"
+          title="${this.employee.id
+            ? msg('Update Employee')
+            : msg('Add Employee')}"
         ></page-header>
         <employee-form
           .employee=${this.employee}
@@ -89,12 +93,12 @@ export class EmployeeFormPage extends LitElement {
 
       <app-modal
         ?isOpen=${this.showSaveModal}
-        title=${this.employee.id ? 'Update Employee' : 'Add Employee'}
+        title=${this.employee.id ? msg('Update Employee') : msg('Add Employee')}
         message=${this.employee.id
-          ? 'Are you sure you want to update this employee?'
-          : 'Are you sure you want to add this employee?'}
-        confirmText="Save"
-        cancelText="Cancel"
+          ? msg('Are you sure you want to update this employee?')
+          : msg('Are you sure you want to add this employee?')}
+        confirmText="${msg('Save')}"
+        cancelText="${msg('Cancel')}"
         @confirm=${this._handleSaveConfirm}
         @cancel=${this._handleSaveCancel}
       ></app-modal>

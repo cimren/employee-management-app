@@ -1,4 +1,5 @@
 import { LitElement, html } from 'lit';
+import { msg, updateWhenLocaleChanges } from '@lit/localize';
 import styles from './employee-list.styles.js';
 import '../../icon/list-view-icon.js';
 import '../../icon/table-view-icon.js';
@@ -19,6 +20,7 @@ export class EmployeeList extends LitElement {
 
   constructor() {
     super();
+    updateWhenLocaleChanges(this);
     this.employees = [];
     this.viewMode = 'list';
     this.searchQuery = '';
@@ -176,27 +178,27 @@ export class EmployeeList extends LitElement {
               </div>
               <div class="employee-details">
                 <div class="detail-item">
-                  <span class="detail-label">Department:</span>
+                  <span class="detail-label">${msg('Department')}:</span>
                   <span>${department}</span>
                 </div>
                 <div class="detail-item">
-                  <span class="detail-label">Position:</span>
+                  <span class="detail-label">${msg('Position')}:</span>
                   <span>${position}</span>
                 </div>
                 <div class="detail-item">
-                  <span class="detail-label">Email:</span>
+                  <span class="detail-label">${msg('Email')}:</span>
                   <span>${email}</span>
                 </div>
                 <div class="detail-item">
-                  <span class="detail-label">Phone:</span>
+                  <span class="detail-label">${msg('Phone')}:</span>
                   <span>${phoneNumber}</span>
                 </div>
                 <div class="detail-item">
-                  <span class="detail-label">Employment Date:</span>
+                  <span class="detail-label">${msg('Employment Date')}:</span>
                   <span>${dateOfEmployment}</span>
                 </div>
                 <div class="detail-item">
-                  <span class="detail-label">Date of Birth:</span>
+                  <span class="detail-label">${msg('Date of Birth')}:</span>
                   <span>${dateOfBirth}</span>
                 </div>
               </div>
@@ -212,15 +214,15 @@ export class EmployeeList extends LitElement {
       <table class="table-view">
         <thead>
           <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Date of Employment</th>
-            <th>Date of Birth</th>
-            <th>Phone</th>
-            <th>Email</th>
-            <th>Department</th>
-            <th>Position</th>
-            <th>Actions</th>
+            <th>${msg('First Name')}</th>
+            <th>${msg('Last Name')}</th>
+            <th>${msg('Date of Employment')}</th>
+            <th>${msg('Date of Birth')}</th>
+            <th>${msg('Phone')}</th>
+            <th>${msg('Email')}</th>
+            <th>${msg('Department')}</th>
+            <th>${msg('Position')}</th>
+            <th>${msg('Actions')}</th>
           </tr>
         </thead>
         <tbody>
