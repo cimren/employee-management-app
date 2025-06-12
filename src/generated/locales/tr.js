@@ -9,7 +9,8 @@
     /* eslint-disable @typescript-eslint/no-explicit-any */
 
     export const templates = {
-      's1e45a4d7635fbda7': `Bölüm`,
+      's13f20cb257e12fac': `Bu alan zorunludur`,
+'s1e45a4d7635fbda7': `Bölüm`,
 's268ecd1cef45a9a8': `Emin misiniz?`,
 's2714784162ec459d': `Devam Et`,
 's2c57913ffd36d298': `Ad`,
@@ -21,11 +22,13 @@
 's4ec58dc6a75753da': `Yeni Ekle`,
 's53802e3f37d072a7': `Doğum Tarihi`,
 's631289fbd1124c79': `Çalışan Yönetim Sistemi`,
+'s6faf53a851ae1ef8': `Geçersiz e-posta adresi`,
 's772528836550622c': `İşe Başlama Tarihi`,
 's77fec0523d866299': `Bu çalışanı güncellemek istediğinize emin misiniz?`,
 's8af61807443f32a4': `İşlemler`,
 's8ef0df4fd25c5cdc': `Çalışan Yönetim Sistemine Hoş Geldiniz!`,
 's95a75a2392af5780': `Soyad`,
+'sbf38b62ad692ac35': `Geçersiz telefon numarası`,
 'sc1611c0558728a2a': `Pozisyon`,
 'sc8306ad1a022ddcc': `Çalışanı Güncelle`,
 'scba00271d50c74f6': `Çalışanlar`,

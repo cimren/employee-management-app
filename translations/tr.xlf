@@ -106,6 +106,18 @@
   <source>Select Position</source>
   <target>Pozisyon Seçin</target> 
 </trans-unit>
+<trans-unit id="s13f20cb257e12fac">
+  <source>This field is required</source>
+  <target>Bu alan zorunludur</target>
+</trans-unit>
+<trans-unit id="s6faf53a851ae1ef8">
+  <source>Invalid email address</source>
+  <target>Geçersiz e-posta adresi</target>
+</trans-unit>
+<trans-unit id="sbf38b62ad692ac35">
+  <source>Invalid phone number</source>
+  <target>Geçersiz telefon numarası</target>
+</trans-unit>
 </body>
 </file>
 </xliff>

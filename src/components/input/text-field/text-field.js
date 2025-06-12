@@ -1,5 +1,6 @@
-import { LitElement, html } from 'lit';
+import { LitElement, html, css } from 'lit';
 import { formStyles } from '../../../utils/formStyles.js';
+import styles from './text-field.styles.js';
 
 /**
  * @typedef {Object} TextFieldProperties
@@ -23,7 +24,7 @@ export class TextField extends LitElement {
     invalid: { type: Boolean },
   };
 
-  static styles = [formStyles];
+  static styles = [formStyles, styles];
 
   constructor() {
     super();
@@ -48,10 +49,13 @@ export class TextField extends LitElement {
         <input
           type=${this.type}
           id="text-field"
+          name="${this.name}"
           .value="${this.value}"
           placeholder="${this.placeholder}"
           @input="${this._handleInputChange}"
           ?required="${this.isRequired}"
+          aria-label="${this.label}"
+          aria-required="${this.isRequired}"
         />
         ${this.errorMessage
           ? html`<div class="error">${this.errorMessage}</div>`
