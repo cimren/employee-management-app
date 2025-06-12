@@ -17,7 +17,7 @@ export const employees = [
     id: 2,
     firstName: 'Jane',
     lastName: 'Smith',
-    dateOfEmployment: ' 2023-02-10',
+    dateOfEmployment: '2023-02-10',
     dateOfBirth: '1990-07-25',
     phoneNumber: '05559876543',
     email: 'jane.smith@example.com',
