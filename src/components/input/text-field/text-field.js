@@ -20,6 +20,7 @@ export class TextField extends LitElement {
     placeholder: { type: String },
     errorMessage: { type: String },
     isRequired: { type: Boolean },
+    invalid: { type: Boolean },
   };
 
   static styles = [formStyles];
@@ -33,6 +34,7 @@ export class TextField extends LitElement {
     this.placeholder = '';
     this.errorMessage = '';
     this.isRequired = false;
+    this.invalid = false;
   }
   render() {
     return html`

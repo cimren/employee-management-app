@@ -6,9 +6,62 @@ import '../../input/date-picker/date-picker.js';
 import '../../input/select-box/select-box.js';
 import styles from './employee-form.styles.js';
 
+const formFields = {
+  firstName: {
+    label: msg('First Name'),
+    type: 'text',
+    isRequired: true,
+    errorMessage: '',
+  },
+  lastName: {
+    label: msg('Last Name'),
+    type: 'text',
+    isRequired: true,
+    errorMessage: '',
+  },
+  dateOfEmployment: {
+    label: msg('Date of Employment'),
+    type: 'date',
+    isRequired: true,
+    errorMessage: '',
+  },
+  dateOfBirth: {
+    label: msg('Date of Birth'),
+    type: 'date',
+    isRequired: true,
+    errorMessage: '',
+  },
+  phoneNumber: {
+    label: msg('Phone'),
+    type: 'tel',
+    isRequired: true,
+    errorMessage: '',
+  },
+  email: {
+    label: msg('Email'),
+    type: 'email',
+    isRequired: true,
+    errorMessage: '',
+  },
+  department: {
+    label: msg('Department'),
+    type: 'select',
+    isRequired: true,
+    errorMessage: '',
+  },
+  position: {
+    label: msg('Position'),
+    type: 'select',
+    isRequired: true,
+    errorMessage: '',
+  },
+};
+
 export class EmployeeForm extends LitElement {
   static properties = {
     employee: { type: Object },
+    formFields: { type: Object },
+    invalid: { type: Boolean },
   };
 
   static styles = [styles];
@@ -16,6 +69,7 @@ export class EmployeeForm extends LitElement {
   constructor() {
     super();
     updateWhenLocaleChanges(this);
+    this.formFields = formFields;
     this.employee = {
       firstName: '',
       lastName: '',
@@ -30,7 +84,10 @@ export class EmployeeForm extends LitElement {
 
   _handleInput(e) {
     const { name, value } = e.target;
-    if (value) {
+    if (value !== undefined && value !== null) {
+      // Clear error message if the field is filled
+      this.formFields[name].errorMessage = '';
+
       this.employee = {
         ...this.employee,
         [name]: value,
@@ -40,11 +97,23 @@ export class EmployeeForm extends LitElement {
 
   _handleSubmit(e) {
     e.preventDefault();
-    this.dispatchEvent(
-      new CustomEvent('save-employee', {
-        detail: this.employee,
-      })
-    );
+    // Validate required fields
+    this.invalid = false;
+
+    Object.entries(this.formFields).map(([fieldName, item]) => {
+      if (item.isRequired && !this.employee[fieldName]) {
+        item.errorMessage = msg(`${item.label} is required`);
+        this.invalid = true;
+      }
+    });
+
+    if (!this.invalid) {
+      this.dispatchEvent(
+        new CustomEvent('save-employee', {
+          detail: this.employee,
+        })
+      );
+    }
   }
 
   _handleCancel() {
@@ -67,16 +136,18 @@ export class EmployeeForm extends LitElement {
         <div class="form-row">
           <text-field
             name="firstName"
-            label=${msg('First Name')}
+            label=${formFields.firstName.label}
             .value=${firstName}
-            isRequired
+            isRequired=${formFields.firstName.isRequired}
+            errorMessage=${formFields.firstName.errorMessage}
             @input-changed=${this._handleInput}
           ></text-field>
           <text-field
             name="lastName"
-            label=${msg('Last Name')}
+            label=${formFields.lastName.label}
             .value=${lastName}
-            isRequired
+            isRequired=${formFields.lastName.isRequired}
+            errorMessage=${formFields.lastName.errorMessage}
             @input-changed=${this._handleInput}
           ></text-field>
         </div>
@@ -84,9 +155,10 @@ export class EmployeeForm extends LitElement {
           <date-picker
             id="dateOfEmployment"
             name="dateOfEmployment"
-            label=${msg('Date of Employment')}
+            label=${formFields.dateOfEmployment.label}
             selectedDate=${dateOfEmployment}
-            isRequired
+            isRequired=${formFields.dateOfEmployment.isRequired}
+            errorMessage=${formFields.dateOfEmployment.errorMessage}
             @date-selected=${(e) =>
               this._handleInput({
                 target: { name: 'dateOfEmployment', value: e.detail.date },
@@ -95,9 +167,10 @@ export class EmployeeForm extends LitElement {
           <date-picker
             id="datePicker"
             name="dateOfBirth"
-            label=${msg('Date of Birth')}
+            label=${formFields.dateOfBirth.label}
             selectedDate=${dateOfBirth}
-            isRequired
+            isRequired=${formFields.dateOfBirth.isRequired}
+            errorMessage=${formFields.dateOfBirth.errorMessage}
             @date-selected=${(e) =>
               this._handleInput({
                 target: { name: 'dateOfBirth', value: e.detail.date },
@@ -108,28 +181,31 @@ export class EmployeeForm extends LitElement {
         <div class="form-row">
           <text-field
             name="phoneNumber"
-            label=${msg('Phone')}
+            label=${formFields.phoneNumber.label}
             type="tel"
             .value=${phoneNumber}
-            isRequired
+            isRequired=${formFields.phoneNumber.isRequired}
+            errorMessage=${formFields.phoneNumber.errorMessage}
             @input-changed=${this._handleInput}
           ></text-field>
           <text-field
             name="email"
-            label=${msg('Email')}
+            label=${formFields.email.label}
             type="email"
             .value=${email}
-            isRequired
+            isRequired=${formFields.email.isRequired}
+            errorMessage=${formFields.email.errorMessage}
             @input-changed=${this._handleInput}
           ></text-field>
         </div>
 
         <div class="form-row">
           <select-box
-            label=${msg('Department')}
+            label=${formFields.department.label}
             name="department"
             placeholder=${msg('Select Department')}
-            isRequired
+            isRequired=${formFields.department.isRequired}
+            errorMessage=${formFields.department.errorMessage}
             .options=${departments.map((dept) => ({
               value: dept,
               label: dept,
@@ -138,10 +214,11 @@ export class EmployeeForm extends LitElement {
             @change=${this._handleInput}
           ></select-box>
           <select-box
-            label=${msg('Position')}
+            label=${formFields.position.label}
             name="position"
             placeholder=${msg('Select Position')}
-            isRequired
+            isRequired=${formFields.position.isRequired}
+            errorMessage=${formFields.position.errorMessage}
             .options=${positions.map((pos) => ({
               value: pos,
               label: pos,

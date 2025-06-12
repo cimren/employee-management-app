@@ -11,6 +11,7 @@ class SelectBox extends LitElement {
     value: { type: String },
     placeholder: { type: String },
     _open: { type: Boolean },
+    errorMessage: { type: String },
   };
 
   static styles = [formStyles, styles];
@@ -24,6 +25,7 @@ class SelectBox extends LitElement {
     this.label = '';
     this.name = '';
     this.isRequired = false;
+    this.errorMessage = '';
     this._handleOutsideClick = this._handleOutsideClick.bind(this);
   }
 
@@ -117,6 +119,9 @@ class SelectBox extends LitElement {
           ${this._renderArrow()}
         </div>
         ${this._open ? this._renderOptions() : ''}
+        ${this.errorMessage
+          ? html`<div class="error" role="alert">${this.errorMessage}</div>`
+          : ''}
       </div>
     `;
   }
