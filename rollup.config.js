@@ -14,7 +14,7 @@ export default {
     }),
     // Copy any static assets to build directory
     copy({
-      patterns: 'src/generated/**/*',
+      patterns: ['src/generated/**/*', 'src/assets/images/**/*'],
     }),
     // Resolve bare module specifiers to relative paths
     resolve(),

@@ -16,12 +16,26 @@ const styles = css`
     align-items: center;
   }
 
-  .logo {
+  .logo-container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .logo-container img {
+    width: 40px;
+    height: 40px;
+    margin-right: 0.5rem;
+  }
+
+  .logo-container span {
     font-size: 1.5rem;
     font-weight: bold;
     color: var(--text-color);
-    text-decoration: none;
     cursor: pointer;
+  }
+  .logo-container span:hover {
+    opacity: 0.8;
   }
 
   nav {
@@ -39,7 +53,7 @@ const styles = css`
   }
 
   nav a:hover {
-    background-color: var(--primary-hover);
+    background-color: var(--hover-color);
   }
 
   .language-selector {

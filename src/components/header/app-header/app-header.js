@@ -31,7 +31,12 @@ export class AppHeader extends LitElement {
   render() {
     return html`
       <header>
-        <a class="logo" href="/">${this.title}</a>
+        <div class="logo-container" @click=${() => this._navigate('/')}>
+          <img            
+            src="src/assets/images/ing-logo.png"
+            alt="ING Logo" />            
+          <span class="logo">${this.title}</span>
+        </div>
         <nav>
           <a href="/employees">${msg('Employees')}</a>
           <a href="/employee-form">${msg('Add New')}</a>
