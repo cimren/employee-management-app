@@ -14,8 +14,13 @@ const styles = css`
 
   .form-row {
     display: grid;
-    grid-template-columns: 1fr 1fr;
     gap: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .form-row {
+      grid-template-columns: 1fr 1fr;
+    }
   }
 
   .buttons {

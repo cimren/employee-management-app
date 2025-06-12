@@ -56,7 +56,7 @@ const styles = css`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
   }
 
   .employee-name {
@@ -73,8 +73,7 @@ const styles = css`
   }
 
   .detail-item {
-    display: flex;
-    gap: 0.5rem;
+    padding-top: 4px;
   }
 
   .detail-label {
