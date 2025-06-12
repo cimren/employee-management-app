@@ -48,7 +48,7 @@ export class AppHeader extends LitElement {
           }}
         >
           <img src="src/assets/images/ing-logo.png" alt="ING Logo" />
-          <span class="logo">${this.title}</span>
+          <span>${this.title}</span>
         </div>
         <div class="nav-container ${this.showMenu ? 'show-nav' : ''}">
           <nav>

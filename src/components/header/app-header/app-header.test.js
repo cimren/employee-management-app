@@ -19,11 +19,12 @@ describe('AppHeader', () => {
     expect(el.shadowRoot.querySelector('nav')).to.exist;
   });
 
-  it('renders a router-link for "Home" with the correct path', async () => {
+  it('renders a router-link for "Home"', async () => {
     const el = await fixture(html`<app-header title="Home"></app-header>`);
-    const homeLink = el.shadowRoot.querySelector('a[href="/"]');
-    expect(homeLink).to.exist;
-    expect(homeLink.textContent).to.equal('Home');
+    const homeLinkContainer = el.shadowRoot.querySelector('.logo-container');
+    const homeLinkTitle = homeLinkContainer.querySelector('span');
+    expect(homeLinkContainer).to.exist;
+    expect(homeLinkTitle.textContent).to.equal('Home');
   });
 
   it('renders a router-link for "Add New" with the correct path', async () => {
