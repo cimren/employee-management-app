@@ -112,13 +112,6 @@ export class EmployeeForm extends LitElement {
         item.errorMessage = msg('Invalid email address');
         this.invalid = true;
       }
-      if (
-        item.type === 'tel' &&
-        !isValidPhoneNumber(this.employee[fieldName])
-      ) {
-        item.errorMessage = msg('Invalid phone number');
-        this.invalid = true;
-      }
     });
 
     if (!this.invalid) {
