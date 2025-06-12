@@ -41,10 +41,12 @@ const styles = css`
   nav a:hover {
     background-color: var(--primary-hover);
   }
+
   .language-selector {
     display: flex;
     align-items: center;
   }
+
   .language-selector select {
     padding: 0.5rem;
     border: 1px solid var(--border-color);
@@ -52,9 +54,20 @@ const styles = css`
     font-size: 1rem;
     cursor: pointer;
   }
+
   .language-selector select:focus {
     outline: none;
     border-color: var(--primary-color);
+  }
+
+  @media (max-width: 768px) {
+    nav {
+      gap: 0.5rem;
+    }
+
+    nav a {
+      padding: 0.25rem;
+    }
   }
 `;
 

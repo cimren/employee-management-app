@@ -5,7 +5,7 @@ const styles = css`
     display: inline-block;
     font-family: sans-serif;
     position: relative;
-    min-width: 160px;
+    min-width: 60px;
     user-select: none;
   }
 

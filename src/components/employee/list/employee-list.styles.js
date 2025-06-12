@@ -72,6 +72,12 @@ const styles = css`
     color: var(--text-secondary);
   }
 
+  @media (max-width: 600px) {
+    .employee-details {
+      grid-template-columns: 1fr;
+    }
+  }
+
   .detail-item {
     padding-top: 4px;
   }
