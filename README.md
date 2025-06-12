@@ -33,6 +33,15 @@ npm test
 
 # Run linting
 npm run lint
+
+#Install @lit/localize-tools command-line interface to update the localization files
+npm i -D @lit/localize-tools
+
+# To generate XLIFF files for localization
+lit-localize extract
+
+# To output a localized version of the strings and templates
+lit-localize build
 ```
 
 ## Project Structure

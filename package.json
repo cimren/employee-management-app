@@ -17,6 +17,7 @@
     "redux": "^5.0.1"
   },
   "devDependencies": {
+    "@babel/eslint-parser": "^7.27.5",
     "@esm-bundle/chai": "^4.3.4-fix.0",
     "@lit/localize-tools": "^0.8.0",
     "@open-wc/testing": "^4.0.0",
