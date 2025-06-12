@@ -15,6 +15,7 @@ export class MyApp extends LitElement {
 
     main {
       flex: 1;
+      padding-top: 72px;
     }
   `;
 

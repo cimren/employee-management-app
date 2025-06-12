@@ -14,6 +14,12 @@ const styles = css`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--card-background);
+    z-index: 1000;
   }
 
   .logo-container {
@@ -96,7 +102,7 @@ const styles = css`
       left: -100%;
       padding-top: 72px;
       background-color: var(--hover-color);
-      width: 70%;
+      width: 55%;
       height: 100vh;
       display: flex;
       gap: 1.5rem;

@@ -22,10 +22,14 @@ export class AppHeader extends LitElement {
     this.title = 'ING';
   }
 
-  _navigate(e) {
+  _handleClick(e) {
     e.preventDefault();
     this.showMenu = false;
-    Router.go(e.target.href);
+    this._navigate(e.target.href);
+  }
+
+  _navigate(path) {
+    Router.go(path);
   }
 
   async setLanguage(locale) {
@@ -36,16 +40,22 @@ export class AppHeader extends LitElement {
   render() {
     return html`
       <header>
-        <div class="logo-container" @click=${this._navigate}>
+        <div
+          class="logo-container"
+          @click=${() => {
+            this.showMenu = false;
+            this._navigate('/');
+          }}
+        >
           <img src="src/assets/images/ing-logo.png" alt="ING Logo" />
           <span class="logo">${this.title}</span>
         </div>
         <div class="nav-container ${this.showMenu ? 'show-nav' : ''}">
           <nav>
-            <a href="/employees" @click=${this._navigate}
+            <a href="/employees" @click=${this._handleClick}
               >${msg('Employees')}</a
             >
-            <a href="/employee-form" @click=${this._navigate}
+            <a href="/employee-form" @click=${this._handleClick}
               >${msg('Add New')}</a
             >
           </nav>
