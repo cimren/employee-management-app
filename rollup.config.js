@@ -12,6 +12,10 @@ export default {
     html({
       input: 'index.html',
     }),
+    // Copy any static assets to build directory
+    copy({
+      patterns: 'src/generated/**/*',
+    }),
     // Resolve bare module specifiers to relative paths
     resolve(),
     // Minify JS
@@ -22,10 +26,6 @@ export default {
     }),
     // Print bundle summary
     summary(),
-    // Copy any static assets to build directory
-    copy({
-      patterns: ['images/**/*'],
-    }),
   ],
   output: {
     dir: 'dist',
